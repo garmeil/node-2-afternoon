@@ -31,21 +31,21 @@ Let's begin by opening a new terminal window and `cd` into the project. Let's cr
 After that is finished, we can see it created a `node_modules` folder. We never want to include this folder on GitHub, so let's create a `.gitignore` that will ignore `node_modules`. Create a file and name it `.env`. This file also needs to be included in the `.gitignore`. After that, we're ready to start creating our server. Create an `index.js` file and `require` all the packages we install at the top.
 
 ```js
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const massive = require('massive');
-require('dotenv').config()
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const massive = require("massive");
+require("dotenv").config();
 ```
 
 Now that our `index.js` file has access to all our packages, let's create a basic server. We'll begin by saving `express()` to a variable called `app`.
 
 ```js
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const massive = require('massive');
-require('dotenv').config()
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const massive = require("massive");
+require("dotenv").config();
 
 const app = express();
 ```
@@ -53,32 +53,35 @@ const app = express();
 Then, we'll want to use our `bodyParser` and `cors` middleware.
 
 ```js
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const massive = require('massive');
-require('dotenv').config()
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const massive = require("massive");
+require("dotenv").config();
 
 const app = express();
-app.use( bodyParser.json() );
-app.use( cors() );
+app.use(bodyParser.json());
+app.use(cors());
 ```
 
 Finally, we'll want to tell the server to listen on port `3000` and use a `console.log` to tell us when it is listening.
 
 ```js
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const massive = require('massive');
-require('dotenv').config()
+const express = require("express");
+const bodyParser = require("body-parser");
+
+const cors = require("cors");
+const massive = require("massive");
+require("dotenv").config();
 
 const app = express();
-app.use( bodyParser.json() );
-app.use( cors() );
+app.use(bodyParser.json());
+app.use(cors());
 
 const port = process.env.PORT || 3000;
-app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}.`);
+});
 ```
 
 </details>
@@ -101,18 +104,20 @@ node_modules
 <summary> <code> index.js </code> </summary>
 
 ```js
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const massive = require('massive');
-require('dotenv').config()
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const massive = require("massive");
+require("dotenv").config();
 
 const app = express();
-app.use( bodyParser.json() );
-app.use( cors() );
+app.use(bodyParser.json());
+app.use(cors());
 
 const port = process.env.PORT || 3000;
-app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}.`);
+});
 ```
 
 </details>
@@ -145,19 +150,21 @@ CONNECTION_STRING=postgres://username:password@host/dbname?ssl=true
 ```
 
 ```js
-massive( process.env.CONNECTION_STRING );
+massive(process.env.CONNECTION_STRING);
 ```
 
 We'll want to execute some logic when the promise is fulfilled, so let's chain a `.then` to it. Be sure to capture the database instance in the first parameter.
 
 ```js
-massive( process.env.CONNECTION_STRING ).then( dbInstance => {} );
+massive(process.env.CONNECTION_STRING).then(dbInstance => {});
 ```
 
 Finally, now that we have the `dbInstance`, we can set it onto `app`. Let's have our function return `app.set('db', dbInstance)`.
 
 ```js
-massive( process.env.CONNECTION_STRING ).then( dbInstance => app.set('db', dbInstance) );
+massive(process.env.CONNECTION_STRING).then(dbInstance =>
+  app.set("db", dbInstance)
+);
 ```
 
 </details>
@@ -169,19 +176,23 @@ massive( process.env.CONNECTION_STRING ).then( dbInstance => app.set('db', dbIns
 <summary> <code> index.js </code> </summary>
 
 ```js
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const massive = require('massive');
-require('dotenv').config()
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const massive = require("massive");
+require("dotenv").config();
 
 const app = express();
-app.use( bodyParser.json() );
-app.use( cors() );
-massive( process.env.CONNECTION_STRING ).then( dbInstance => app.set('db', dbInstance) );
+app.use(bodyParser.json());
+app.use(cors());
+massive(process.env.CONNECTION_STRING).then(dbInstance =>
+  app.set("db", dbInstance)
+);
 
 const port = process.env.PORT || 3000;
-app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}.`);
+});
 ```
 
 </details>
@@ -383,24 +394,24 @@ Now that we have all the `sql` files we'll need to interact with our database, l
 
 ```js
 module.exports = {
-  create: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  create: (req, res, next) => {
+    const dbInstance = req.app.get("db");
   },
 
-  getOne: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  getOne: (req, res, next) => {
+    const dbInstance = req.app.get("db");
   },
 
-  getAll: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  getAll: (req, res, next) => {
+    const dbInstance = req.app.get("db");
   },
 
-  update: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  update: (req, res, next) => {
+    const dbInstance = req.app.get("db");
   },
 
-  delete: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  delete: (req, res, next) => {
+    const dbInstance = req.app.get("db");
   }
 };
 ```
@@ -409,44 +420,49 @@ Now that our methods have access to the `dbInstance` we can execute our sql file
 
 ```js
 module.exports = {
-  create: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  create: (req, res, next) => {
+    const dbInstance = req.app.get("db");
 
-    dbInstance.create_product()
-      .then( () => res.status(200).send() )
-      .catch( () => res.status(500).send() );
+    dbInstance
+      .create_product()
+      .then(() => res.status(200).send())
+      .catch(() => res.status(500).send());
   },
 
-  getOne: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  getOne: (req, res, next) => {
+    const dbInstance = req.app.get("db");
 
-    dbInstance.read_product()
-      .then( product => res.status(200).send( product ) )
-      .catch( () => res.status(500).send() );
+    dbInstance
+      .read_product()
+      .then(product => res.status(200).send(product))
+      .catch(() => res.status(500).send());
   },
 
-  getAll: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  getAll: (req, res, next) => {
+    const dbInstance = req.app.get("db");
 
-    dbInstance.read_products()
-      .then( products => res.status(200).send( products ) )
-      .catch( () => res.status(500).send() );
+    dbInstance
+      .read_products()
+      .then(products => res.status(200).send(products))
+      .catch(() => res.status(500).send());
   },
 
-  update: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  update: (req, res, next) => {
+    const dbInstance = req.app.get("db");
 
-    dbInstance.update_product()
-      .then( () => res.status(200).send() )
-      .catch( () => res.status(500).send() );
+    dbInstance
+      .update_product()
+      .then(() => res.status(200).send())
+      .catch(() => res.status(500).send());
   },
 
-  delete: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  delete: (req, res, next) => {
+    const dbInstance = req.app.get("db");
 
-    dbInstance.delete_product()
-      .then( () => res.status(200).send() )
-      .catch( () => res.status(500).send() );
+    dbInstance
+      .delete_product()
+      .then(() => res.status(200).send())
+      .catch(() => res.status(500).send());
   }
 };
 ```
@@ -463,47 +479,53 @@ We'll worry about how to use parameters after we configure our routes. For right
 
 ```js
 module.exports = {
-  create: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  create: (req, res, next) => {
+    const dbInstance = req.app.get("db");
 
-    dbInstance.create_product()
-      .then( () => res.status(200).send() )
-      .catch( () => res.status(500).send() );
+    dbInstance
+      .create_product()
+      .then(() => res.status(200).send())
+      .catch(() => res.status(500).send());
   },
 
-  getOne: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  getOne: (req, res, next) => {
+    const dbInstance = req.app.get("db");
 
-    dbInstance.read_product()
-      .then( product => res.status(200).send( product ) )
-      .catch( () => res.status(500).send() );
+    dbInstance
+      .read_product()
+      .then(product => res.status(200).send(product))
+      .catch(() => res.status(500).send());
   },
 
-  getAll: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  getAll: (req, res, next) => {
+    const dbInstance = req.app.get("db");
 
-    dbInstance.read_products()
-      .then( products => res.status(200).send( products ) )
-      .catch( () => res.status(500).send() );
+    dbInstance
+      .read_products()
+      .then(products => res.status(200).send(products))
+      .catch(() => res.status(500).send());
   },
 
-  update: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  update: (req, res, next) => {
+    const dbInstance = req.app.get("db");
 
-    dbInstance.update_product()
-      .then( () => res.status(200).send() )
-      .catch( () => res.status(500).send() );
+    dbInstance
+      .update_product()
+      .then(() => res.status(200).send())
+      .catch(() => res.status(500).send());
   },
 
-  delete: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  delete: (req, res, next) => {
+    const dbInstance = req.app.get("db");
 
-    dbInstance.delete_product()
-      .then( () => res.status(200).send() )
-      .catch( () => res.status(500).send() );
+    dbInstance
+      .delete_product()
+      .then(() => res.status(200).send())
+      .catch(() => res.status(500).send());
   }
 };
 ```
+
 </details>
 
 ## Step 5
@@ -528,30 +550,33 @@ In this step, we will create endpoints that will call the methods on our control
 <summary> <code> index.js </code> </summary>
 
 ```js
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const massive = require('massive');
-require('dotenv').config()
-const products_controller = require('./products_controller');
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const massive = require("massive");
+require("dotenv").config();
+const products_controller = require("./products_controller");
 
 const app = express();
-app.use( bodyParser.json() );
-app.use( cors() );
-massive( process.env.CONNECTION_STRING ).then( dbInstance => app.set('db', dbInstance) );
+app.use(bodyParser.json());
+app.use(cors());
+massive(process.env.CONNECTION_STRING).then(dbInstance =>
+  app.set("db", dbInstance)
+);
 
-app.post( '/api/product', products_controller.create );
-app.get( '/api/products', products_controller.getAll );
-app.get( '/api/product/:id', products_controller.getOne );
-app.put( '/api/product/:id', products_controller.update );
-app.delete( '/api/product/:id', products_controller.delete );
+app.post("/api/product", products_controller.create);
+app.get("/api/products", products_controller.getAll);
+app.get("/api/product/:id", products_controller.getOne);
+app.put("/api/product/:id", products_controller.update);
+app.delete("/api/product/:id", products_controller.delete);
 
 const port = process.env.PORT || 3000;
-app.listen( port, () => { console.log(`Server listening on port ${port}.`); } );
+app.listen(port, () => {
+  console.log(`Server listening on port ${port}.`);
+});
 ```
 
 </details>
-
 
 ## Step 6
 
@@ -577,48 +602,53 @@ Now that we know how our routes are configured, we can update our controller to 
 
 ```js
 module.exports = {
-  create: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  create: (req, res, next) => {
+    const dbInstance = req.app.get("db");
     const { name, description, price, imageurl } = req.body;
 
-    dbInstance.create_product([ name, description, price, imageurl ])
-      .then( () => res.status(200).send() )
-      .catch( () => res.status(500).send() );
+    dbInstance
+      .create_product([name, description, price, imageurl])
+      .then(() => res.status(200).send())
+      .catch(() => res.status(500).send());
   },
 
-  getOne: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  getOne: (req, res, next) => {
+    const dbInstance = req.app.get("db");
     const { params } = req;
 
-    dbInstance.read_product([ params.id ])
-      .then( product => res.status(200).send( product ) )
-      .catch( () => res.status(500).send() );
+    dbInstance
+      .read_product([params.id])
+      .then(product => res.status(200).send(product))
+      .catch(() => res.status(500).send());
   },
 
-  getAll: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  getAll: (req, res, next) => {
+    const dbInstance = req.app.get("db");
 
-    dbInstance.read_products()
-      .then( products => res.status(200).send( products ) )
-      .catch( () => res.status(500).send() );
+    dbInstance
+      .read_products()
+      .then(products => res.status(200).send(products))
+      .catch(() => res.status(500).send());
   },
 
-  update: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  update: (req, res, next) => {
+    const dbInstance = req.app.get("db");
     const { params, query } = req;
 
-    dbInstance.update_product([ params.id, query.desc ])
-      .then( () => res.status(200).send() )
-      .catch( () => res.status(500).send() );
+    dbInstance
+      .update_product([params.id, query.desc])
+      .then(() => res.status(200).send())
+      .catch(() => res.status(500).send());
   },
 
-  delete: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  delete: (req, res, next) => {
+    const dbInstance = req.app.get("db");
     const { params } = req;
 
-    dbInstance.delete_product([ params.id ])
-      .then( () => res.status(200).send() )
-      .catch( () => res.status(500).send() );
+    dbInstance
+      .delete_product([params.id])
+      .then(() => res.status(200).send())
+      .catch(() => res.status(500).send());
   }
 };
 ```
@@ -633,48 +663,53 @@ module.exports = {
 
 ```js
 module.exports = {
-  create: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  create: (req, res, next) => {
+    const dbInstance = req.app.get("db");
     const { name, description, price, imageurl } = req.body;
 
-    dbInstance.create_product([ name, description, price, imageurl ])
-      .then( () => res.status(200).send() )
-      .catch( () => res.status(500).send() );
+    dbInstance
+      .create_product([name, description, price, imageurl])
+      .then(() => res.status(200).send())
+      .catch(() => res.status(500).send());
   },
 
-  getOne: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  getOne: (req, res, next) => {
+    const dbInstance = req.app.get("db");
     const { params } = req;
 
-    dbInstance.read_product([ params.id ])
-      .then( product => res.status(200).send( product ) )
-      .catch( () => res.status(500).send() );
+    dbInstance
+      .read_product([params.id])
+      .then(product => res.status(200).send(product))
+      .catch(() => res.status(500).send());
   },
 
-  getAll: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  getAll: (req, res, next) => {
+    const dbInstance = req.app.get("db");
 
-    dbInstance.read_products()
-      .then( products => res.status(200).send( products ) )
-      .catch( () => res.status(500).send() );
+    dbInstance
+      .read_products()
+      .then(products => res.status(200).send(products))
+      .catch(() => res.status(500).send());
   },
 
-  update: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  update: (req, res, next) => {
+    const dbInstance = req.app.get("db");
     const { params, query } = req;
 
-    dbInstance.update_product([ params.id, query.desc ])
-      .then( () => res.status(200).send() )
-      .catch( () => res.status(500).send() );
+    dbInstance
+      .update_product([params.id, query.desc])
+      .then(() => res.status(200).send())
+      .catch(() => res.status(500).send());
   },
 
-  delete: ( req, res, next ) => {
-    const dbInstance = req.app.get('db');
+  delete: (req, res, next) => {
+    const dbInstance = req.app.get("db");
     const { params } = req;
 
-    dbInstance.delete_product([ params.id ])
-      .then( () => res.status(200).send() )
-      .catch( () => res.status(500).send() );
+    dbInstance
+      .delete_product([params.id])
+      .then(() => res.status(200).send())
+      .catch(() => res.status(500).send());
   }
 };
 ```
